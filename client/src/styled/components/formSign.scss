@@ -1,7 +1,26 @@
-.form-to-account{
-    margin: auto;
-    width:400px;
-    height:500px;
-    background-color: orange;
+.form-to-account {
+  margin: auto;
+  width: 400px;
+  background-color: orange;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vh 0;
+  .form-group-connect {
     display: flex;
+    flex-direction: column;
+    margin: 0 0 10px 0;
+    label {
+      margin: 1vh 0;
+    }
+  }
+  .form-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icone-show-pass {
+      width: 20px;
+      margin-left: 5px;
+    }
+  }
 }

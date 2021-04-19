@@ -1,7 +1,19 @@
 .connexion-container{
     border: 1px solid red;
     display: flex;
+    flex-direction: column;
     align-self: center;
     justify-content: center;
     min-height:80vh;
+    .select-sign{
+        text-align: center;
+        .btn-signInOut{
+            cursor: pointer;
+            border: 1px solid red;
+            &:first-child{
+                margin-right: 10px;
+            }
+        }
+    }
+
 }

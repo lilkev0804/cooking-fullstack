@@ -7,16 +7,18 @@ import {
 
 import Home from './screens/general/Home'
 import Connect from './screens/general/Connect'
-import Account from './screens/general/Account'
+import MyRecipes from './screens/account/MyRecipes'
 import Navbar from './screens/general/Navbar';
-
+import AddRecipe from "./screens/account/AddRecipe";
+import MyAccount from "./screens/account/MyAccount";
+require('dotenv').config()
 
 
 function App() {
   return (
     <Router>
       
-        <Navbar></Navbar>
+        <Navbar visible={window.location.pathname.includes('compte')? "none" : ""}></Navbar>
         <Switch>
           <Route exact path="/">
             <Home/>
@@ -24,8 +26,14 @@ function App() {
           <Route path="/connexion">
             <Connect />
           </Route>
-          <Route path="/monespace">
-            <Account />
+          <Route path="/compte/mes-recettes">
+            <MyRecipes />
+          </Route>
+          <Route path="/compte/ajouter-recettes">
+            <AddRecipe />
+          </Route>
+          <Route path="/compte/mon-compte">
+            <MyAccount />
           </Route>
         </Switch>
     
