@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {useSelector} from "react-redux"
 import { Editor } from "@tinymce/tinymce-react";
-import NavEspace from "../../components/NavEspace";
+import {selectUser} from '../../features/userSlice'
+import {useHistory} from 'react-router-dom'
+
 require("dotenv").config();
 export default function AddRecipe() {
+  const user = useSelector(selectUser)
+  let history = useHistory()
   const [initialValue, setInitialValue] = useState("");
   const [description, setDescription] = useState("");
   const [addData, setAddData] = useState({
@@ -23,6 +28,13 @@ export default function AddRecipe() {
     etapes: "",
   });
 
+
+  useEffect(() => {
+    if(user === null){
+        history.push('/connexion')
+    }
+  }, [])
+
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
 
@@ -32,15 +44,14 @@ export default function AddRecipe() {
 
   const catchPicture = (e) => { 
     console.log(e.target.files[0])
-    setAddData({ ...addData, picture : e.target.files[0]});
-    setAddData({ ...addData, pictureName : e.target.files[0].name.replace(/ /g, '')});
+    setAddData({ ...addData, picture : e.target.files[0], pictureName : e.target.files[0].name.replace(/ /g, '')} );
+   
   }
 
   console.log(addData);
 
   return (
     <>
-      <NavEspace></NavEspace>
       <div className="body-espace">
         <div className="new-recipes">
           <h2>Ajouter une recette</h2>

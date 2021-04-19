@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
 import Home from './screens/general/Home'
 import Connect from './screens/general/Connect'
 import MyRecipes from './screens/account/MyRecipes'
@@ -15,10 +14,11 @@ require('dotenv').config()
 
 
 function App() {
+
   return (
     <Router>
       
-        <Navbar visible={window.location.pathname.includes('compte')? "none" : ""}></Navbar>
+        <Navbar></Navbar>
         <Switch>
           <Route exact path="/">
             <Home/>
@@ -32,7 +32,7 @@ function App() {
           <Route path="/compte/ajouter-recettes">
             <AddRecipe />
           </Route>
-          <Route path="/compte/mon-compte">
+          <Route path="/compte">
             <MyAccount />
           </Route>
         </Switch>

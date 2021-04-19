@@ -14,8 +14,8 @@ const changeSign = (e) => {
     return (
         <div className="Container connexion-container">
             <div className="select-sign">
-                <span className="btn-signInOut" onClick={changeSign} id="btn-inscription">S'enregistrer</span>
-                <span className="btn-signInOut" onClick={changeSign} id="btn-connection">Se connecter</span>
+                <span className="btn-signInOut" style={{backgroundColor : `${toggleSign ? 'black' : ""}` , color : `${toggleSign ? "white" : ""}` }} onClick={changeSign} id="btn-inscription">S'enregistrer</span>
+                <span className="btn-signInOut" style={{backgroundColor : `${toggleSign ? '' : "black"}` , color : `${toggleSign ? "" : "white"}` }} onClick={changeSign} id="btn-connection">Se connecter</span>
             </div>
             <FormSign show={toggleSign ? "flex" : "none"}/>
             <FormSignOut show={toggleSign ? "none" : "flex"}/>

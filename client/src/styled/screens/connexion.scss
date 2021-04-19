@@ -1,19 +1,49 @@
-.connexion-container{
-    border: 1px solid red;
+.connexion-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  .select-sign {
+    text-align: center;
+    margin: 5vh auto;
+    .btn-signInOut {
+      cursor: pointer;
+      padding: 8px 12px;
+      border: 1px solid black;
+      border-radius: 10px;
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+.form-to-account {
+  margin: auto;
+  width: 400px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh 0;
+  .left {
+    margin-right: px !important;
+  }
+  .form-group-connect {
     display: flex;
     flex-direction: column;
-    align-self: center;
-    justify-content: center;
-    min-height:80vh;
-    .select-sign{
-        text-align: center;
-        .btn-signInOut{
-            cursor: pointer;
-            border: 1px solid red;
-            &:first-child{
-                margin-right: 10px;
-            }
-        }
+    margin: 0 0 10px 0;
+    label {
+      margin: 1vh 0;
     }
-
+  }
+  .form-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icone-show-pass {
+      width: 20px;
+      margin-left: 5px;
+    }
+  }
 }
