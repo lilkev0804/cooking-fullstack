@@ -1,0 +1,33 @@
+.Card-Recipe-Home{
+    max-width: 300px;
+    width: 30%;
+    border: 2px solid green;
+    margin:1vh 0;
+    .bg-card{
+        background-color: green; 
+        height: 250px;
+        position:relative;
+    }
+    .details-card{
+        height:100px;
+        position: relative;
+        display:flex;
+        justify-content : center;
+        align-items: center;
+        span{
+        position:absolute;
+        left:50%;
+        top:-40px;
+        transform : translateX(-50%);
+        background-color:white;
+        padding: 2px 10px;
+        border-radius : 30% 30% 0px 0 ;
+        .icon-card{
+                    width:40px;
+            }
+        }
+        .link-to-recipte{
+            text-decoration: none;
+        }
+    }
+}

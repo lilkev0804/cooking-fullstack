@@ -1,0 +1,35 @@
+.home-general {
+  display: flex;
+  flex-direction: column;
+  .top-home {
+    width: 100%;
+    display: flex;
+    margin: 2vh 0;
+    justify-content: space-evenly;
+    .container-bubbleIdea {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bubbleIdea {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: orange;
+      p {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+  .all-recipe{
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+  }
+}
