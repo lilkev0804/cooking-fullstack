@@ -4,53 +4,73 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  a{
-      text-decoration: none;
+  a {
+    text-decoration: none;
   }
 }
-.fixed-navbar{
-    position: fixed;
-    top:0px;
+.fixed-navbar {
+  position: fixed;
+  top: 0px;
 }
-.navbar-element-menu{
-    width: 10%;
-    border-right:1px solid black ;
-    height: 100%;
+.navbar-element-menu {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-element-search {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  .logoWeb {
+    font-size: 2rem;
+    color: #a4330d;
+    letter-spacing: 1.4px;
+    font-weight: 600;
+  }
+  .searchBar {
+    width: 60%;
     display: flex;
     align-items: center;
-    justify-content: center;
-
-}
-.navbar-element-search{
-    width: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-right: 1px solid black;
-    height: 100%;
-
-    .searchBar{
-        width: 60%;
-        display:flex;
-        align-items:center;
-        cursor: pointer;
-        input{
-            height:20px;
-            width:100%;
-        }
-        .icon-navbar{
-            width:20px;
-            cursor:pointer;
-        }
+    cursor: pointer;
+    input {
+      height: 20px;
+      width: 100%;
+      border-color: #a4330d;
+      color: #a4330d;
     }
-
-}
-.navbar-element-account{
-    width: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    a{
-        color: black;
+    .icon-navbar {
+      width: 20px;
+      padding-right: 15px;
+      cursor: pointer;
     }
+  }
+}
+.navbar-element-account {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    color: $colorThird;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+  }
+}
+.block-input-menu {
+  display: flex;
+  flex-wrap: wrap;
+  width: 25px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.block-menu {
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  background: #6c9e4f;
 }

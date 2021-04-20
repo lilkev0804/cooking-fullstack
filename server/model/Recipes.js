@@ -1,6 +1,18 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
+    type:{
+        type: String,
+        required: true,
+        max:500,
+        min: 8
+    },
+    proprietaire: {
+        type: String,
+        required: true,
+        max:500,
+        min: 8
+    },
     title:{
         type: String,
         required: true,
@@ -19,7 +31,7 @@ const userSchema = new mongoose.Schema({
         max:50,
         min: 0,
     },
-    timingFormt:{
+    timingFormat:{
         type: String,
         required: true,
         max:50,
@@ -38,7 +50,7 @@ const userSchema = new mongoose.Schema({
         min: 0,
     },
     ingredients:{
-        type: Array,
+        type: String,
         required: true,
         max:5000,
         min: 0,

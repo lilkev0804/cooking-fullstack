@@ -3,20 +3,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    text-transform: capitalize;
+  }
   h2 {
     text-align: center;
+    color: $colorThird;
   }
   .input-recipes {
     width: 99%;
+    .first-info {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      p {
+        margin: 10px 10px;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+    }
     .choiceImg {
-      background-color: green;
-      height: 200px;
-      max-width: 300px;
+      width: 300px;
       margin: 2vh auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
     .generalInfo {
       height: 100px;
@@ -24,16 +41,15 @@
       display: flex;
       margin: 2vh auto;
       justify-content: space-around;
+
       .timing,
       .difficulty,
       .price {
         width: 30%;
         height: 100px;
-        border: 1px solid green;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: red;
         align-items: center;
         input {
           padding: 0;
@@ -42,14 +58,14 @@
       }
     }
     .ingredient {
-      background-color: purple;
-      height: 400px;
+      max-width: 600px;
+      margin: 5vh auto;
       width: 100%;
       margin: 2vh auto;
     }
     .recapTiming {
       width: 95%;
-      margin: 2vh auto;
+      margin: 4vh auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -62,7 +78,6 @@
         .recapInfo {
           width: 30%;
           height: 100%;
-          background-color: orange;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -74,7 +89,7 @@
     }
     .stepRecipe {
       width: 600px;
-      margin: 2vh auto;
+      margin: 5vh auto;
     }
   }
   .validateRecipe {
@@ -84,5 +99,34 @@
     display: flex;
     align-items: center;
     width: 400px;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .first-info{
+    flex-direction: column;
+  }
+  .generalInfo {
+    flex-direction: column;
+    height: auto !important;
+    align-items: center;
+    justify-content: center;
+    .timing,
+    .difficulty,
+    .price {
+      flex-direction: column;
+      align-items: center;
+    }
+    .timing div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+  }
+  .block-info{
+    height: auto !important;
+    flex-direction: column !important;
+    align-items: center;
   }
 }

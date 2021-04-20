@@ -13,11 +13,9 @@ const userSchema = new mongoose.Schema({
         max:1024,
         min: 8
     },
-    passwordConfirm:{
-        type: String,
-        required: true,
-        max:1024,
-        min: 8
+    info:{
+        type: Array,
+        required :false
     },
     date: {
         type: Date,

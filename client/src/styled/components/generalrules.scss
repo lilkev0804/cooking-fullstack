@@ -3,3 +3,40 @@
   max-width: 1400px;
   margin: 5vh auto;
 }
+h2 {
+  letter-spacing: 1.4px;
+}
+.btn {
+  padding: 10px 16px;
+  margin: 2vh auto;
+  background-color: #a4330d;
+  border: 1px solid white;
+  color: white;
+  letter-spacing: 1.2px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.btn:hover {
+  transform: scale(0.8);
+}
+.btn:focus {
+  outline: none;
+}
+
+.Container-Recipe {
+  width: 95%;
+  max-width: 1400px;
+  margin: 5vh auto;
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #a4330d;
+    letter-spacing: 1.3px;
+  }
+  .all-recipe {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}

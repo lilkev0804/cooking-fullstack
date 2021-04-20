@@ -1,33 +1,78 @@
-.Card-Recipe-Home{
-    max-width: 300px;
-    width: 30%;
-    border: 2px solid green;
-    margin:1vh 0;
-    .bg-card{
-        background-color: green; 
-        height: 250px;
-        position:relative;
+.Card-Recipe-Home {
+  max-width: 320px;
+  width: 30%;
+  margin: 1vh 10px;
+  color: white;
+  .bg-card {
+    height: 250px;
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .details-card {
+    height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    border: 2px solid $colorSecondary;
+    background: $colorSecondary;
+    span {
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      top: -36px;
+      transform: translateX(-50%);
+      background: $colorSecondary;
+      padding: 2px 10px;
+      border-radius: 30% 30% 0px 0;
+      .icon-card {
+        width: 40px;
+      }
     }
-    .details-card{
-        height:100px;
-        position: relative;
-        display:flex;
-        justify-content : center;
-        align-items: center;
-        span{
-        position:absolute;
-        left:50%;
-        top:-40px;
-        transform : translateX(-50%);
-        background-color:white;
-        padding: 2px 10px;
-        border-radius : 30% 30% 0px 0 ;
-        .icon-card{
-                    width:40px;
-            }
-        }
-        .link-to-recipte{
-            text-decoration: none;
-        }
+    .link-to-recipte {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 1.3px;
     }
+    .time-card {
+      position: absolute;
+      bottom: 2px;
+      left: 5px;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      .icon-card {
+        width: 20px;
+        margin-right: 3px;
+      }
+    }
+    .price-card {
+      position: absolute;
+      bottom: 2px;
+      right: 5px;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      .icon-card {
+        width: 20px;
+        margin-left: 3px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 866px) {
+  .Card-Recipe-Home {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 696px) {
+  .Card-Recipe-Home {
+    width: 100%;
+  }
 }

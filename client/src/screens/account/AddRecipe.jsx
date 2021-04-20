@@ -1,39 +1,57 @@
 import React, { useState, useEffect } from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
-import {selectUser} from '../../features/userSlice'
-import {useHistory} from 'react-router-dom'
+import { selectUser } from "../../features/userSlice";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 require("dotenv").config();
 export default function AddRecipe() {
-  const user = useSelector(selectUser)
-  let history = useHistory()
+  const user = useSelector(selectUser);
+  let history = useHistory();
   const [initialValue, setInitialValue] = useState("");
   const [description, setDescription] = useState("");
+  const [message, setMessage] =useState(false)
+  const [file, setFile] = useState({
+    data: "",
+    name: "",
+  });
   const [addData, setAddData] = useState({
+    type: "",
+    proprietaire: user.name,
     title: "",
-    picture: "",
-    pictureName: '',
+    pictureName: "",
     timing: "",
     timingFormat: "",
     difficulty: "",
     prix: "",
-    ingredients: [""],
+    ingredients: "",
     preparationTime: "",
     preparationTimeFormat: "",
     reposTime: "",
     reposTimeFormat: "",
     cuissonTime: "",
     cuissonTimeFormat: "",
-    etapes: "",
+    etapes: "Aucune",
   });
 
-
   useEffect(() => {
-    if(user === null){
-        history.push('/connexion')
-    }
-  }, [])
+    const token = localStorage.getItem("token");
+    axios({
+      method: "POST",
+      url: "http://localhost:3002/auth/protect",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.data.mess === "null") {
+          history.push("/connexion");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
@@ -41,57 +59,98 @@ export default function AddRecipe() {
   const handleEditorChange = (content, editor) => {
     setAddData({ ...addData, etapes: content });
   };
+  const handleEditorChangeSD = (content, editor) => {
+    setAddData({ ...addData, ingredients: content });
+  };
 
-  const catchPicture = (e) => { 
-    console.log(e.target.files[0])
-    setAddData({ ...addData, picture : e.target.files[0], pictureName : e.target.files[0].name.replace(/ /g, '')} );
-   
-  }
+  const catchPicture = (e) => {
+    setFile({
+      data: e.target.files[0],
+      name: e.target.files[0].name.replace(/ /g, ""),
+    })
+    setAddData({ ...addData, pictureName: e.target.files[0].name.replace(/ /g, "") })
+  };
+  
+  const handleSubmit = async () => {
+    await axios
+      .post("http://localhost:3002/recette/ajouter", {
+        ...addData,
+      })
+      .then( (res) => {
+        setMessage(!message)
+      })
+      .catch((err) => console.log(err));
+    const data = new FormData();
+    data.append("name", file.name);
+    data.append("file", file.data);
+    await axios
+      .post("http://localhost:3002/upload", data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
-  console.log(addData);
+console.log(addData)
 
   return (
     <>
       <div className="body-espace">
+        <div className="breadCrumb">
+          <Link to="/compte">Mon espace</Link> / <p>Ajouter des recettes</p>
+        </div>
         <div className="new-recipes">
-          <h2>Ajouter une recette</h2>
+          <h2>Information general de la recette</h2>
           <div className="input-recipes">
-            <p>
-              Ttre :{" "}
-              <input
-                name="title"
-                value={addData.title}
-                onChange={onChange}
-                type="text"
-              ></input>
-            </p>
+            <div className="first-info">
+              <p>
+                Nom De la recette :{" "}
+                <input
+                  name="title"
+                  value={addData.title}
+                  onChange={onChange}
+                  type="text"
+                ></input>
+              </p>
+              <p>
+                Type :{" "}
+                <select name="type" value={addData.type} onChange={onChange}>
+                  <option></option>
+                  <option>Entrée</option>
+                  <option>Plat</option>
+                  <option>Dessert</option>
+                </select>
+              </p>
+            </div>
             <div className="choiceImg">
-              <input type='file'
-              id='file'
-              accept='image/png, image/jpeg'
-              onChange={catchPicture}></input>
+              <input
+                type="file"
+                id="file"
+                accept="image/png, image/jpeg"
+                onChange={catchPicture}
+              />
             </div>
             <div className="generalInfo">
               <div className="timing">
-                <p>Durée</p>
-                <input
-                  type="text"
-                  name="timing"
-                  value={addData.timing}
-                  onChange={onChange}
-                ></input>
-                <select
-                  name="timingFormat"
-                  value={addData.timingFormat}
-                  onChange={onChange}
-                >
-                  <option></option>
-                  <option>Heures</option>
-                  <option>Minutes</option>
-                </select>
+                <p>Durée : </p>
+                <div>
+                  <input
+                    type="text"
+                    name="timing"
+                    value={addData.timing}
+                    onChange={onChange}
+                  ></input>
+                  <select
+                    name="timingFormat"
+                    value={addData.timingFormat}
+                    onChange={onChange}
+                  >
+                    <option></option>
+                    <option>Heures</option>
+                    <option>Minutes</option>
+                  </select>
+                </div>
               </div>
               <div className="difficulty">
-                <p>Difficulté</p>
+                <p>Difficulté :</p>
                 <select
                   name="difficulty"
                   value={addData.difficulty}
@@ -104,7 +163,7 @@ export default function AddRecipe() {
                 </select>
               </div>
               <div className="price">
-                <p>Prix</p>
+                <p>Prix :</p>
                 <select name="prix" value={addData.prix} onChange={onChange}>
                   <option></option>
                   <option>Economique</option>
@@ -113,11 +172,34 @@ export default function AddRecipe() {
                 </select>
               </div>
             </div>
-            <div className="ingredient"></div>
+            <div className="ingredient">
+              <h2>Les ingredients</h2>
+              <Editor
+                initialValue={initialValue}
+                apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
+                name="text"
+                outputFormat='text'
+                onEditorChange={handleEditorChangeSD}
+                init={{
+                  height: 400,
+                  forced_root_block: false,
+                  menubar: false,
+                  plugins: [
+                    "advlist autolink lists link image",
+                    "charmap print preview anchor help",
+                    "searchreplace visualblocks code",
+                    "a_tinymce_plugin",
+                    "insertdatetime media table paste wordcount",
+                  ],
+                  toolbar: "Numlist",
+                }}
+              />
+            </div>
             <div className="recapTiming">
+              <h2>Le Timing</h2>
               <div className="block-info">
                 <div className="recapInfo">
-                  <p>Préparation</p>
+                  <p>Préparation :</p>
                   <div>
                     <input
                       type="text"
@@ -137,7 +219,7 @@ export default function AddRecipe() {
                   </div>
                 </div>
                 <div className="recapInfo">
-                  <p>Repos</p>
+                  <p>Repos :</p>
                   <div>
                     <input
                       type="text"
@@ -157,7 +239,7 @@ export default function AddRecipe() {
                   </div>
                 </div>
                 <div className="recapInfo">
-                  <p>Cuisson</p>
+                  <p>Cuisson :</p>
                   <div>
                     <input
                       type="text"
@@ -184,9 +266,10 @@ export default function AddRecipe() {
                 initialValue={initialValue}
                 apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
                 name="text"
+                outputFormat='text'
                 onEditorChange={handleEditorChange}
                 init={{
-                  height: 500,
+                  height: 400,
                   forced_root_block: false,
                   menubar: false,
                   plugins: [
@@ -202,7 +285,10 @@ export default function AddRecipe() {
             </div>
           </div>
           <div className="group-btn">
-            <button className="validateRecipe">Valider ma recette</button>
+            {message ? <p>Recette Poster</p> : ""}
+            <button className="validateRecipe" onClick={handleSubmit}>
+              Valider ma recette
+            </button>
             <button className="SaveRecipe">Sauvegarder ma recette</button>
           </div>
         </div>

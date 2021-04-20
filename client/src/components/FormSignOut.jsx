@@ -10,7 +10,6 @@ export default function FormSignOut(props) {
   const [password, setPassword] = useState()
   const [message , setMessage] = useState(true)
 
-
   const  dispatch = useDispatch()
   const history = useHistory()
   const handleSubmit = e => {
@@ -21,23 +20,26 @@ export default function FormSignOut(props) {
         password: password,
       })
       .then((res) => {
+        localStorage.setItem("token", res.headers["x-access-token"])
           dispatch(login(
-              {name: user,
-              password : password,
-              loggedIn: true
+              {
+                name: user,
+                token: localStorage.getItem("token")
               }
           ))
+          
           history.push('/compte')
           setMessage(true)
       })
       .catch((error) => {setMessage(!message)});
   }
 
-
   const togglePass = (e) => {
     e.preventDefault();
     setShowPass(!showPass);
   };
+
+
   return (
     <form onSubmit={handleSubmit} className="form-to-account" style={{display: `${props.show}`}}>
       <div className="form-group-connect left">

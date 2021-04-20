@@ -1,0 +1,29 @@
+.burgerMenuContainer {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  background-color: $colorThird;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .link-burger {
+    color: white;
+    margin-top: 2vh;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+  }
+  .closeburger {
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.4s ease-in-out;
+  }
+  .closeburger:hover {
+    transform: scale(1.2);
+  }
+}

@@ -26,7 +26,10 @@ export default function FormSign(props) {
           passwordConfirm: passwordsd,
         })
         .then((res) => {
-          dispatch(login({ name: user, password: password, loggedIn: true }));
+          console.log(res)
+          localStorage.setItem("token", res.headers["x-access-token"])
+          console.log("token", localStorage.getItem("token"))
+          dispatch(login({ name: user ,token: localStorage.getItem("token")}));
           history.push("/compte");
         })
         .catch((error) => {

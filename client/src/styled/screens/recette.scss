@@ -1,0 +1,60 @@
+.onlyRecipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nameRecipe {
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: $colorThird;
+}
+.Imagerecette {
+  width: 400px;
+  height: 400px;
+  margin: 2vh auto;
+}
+.Info-Recipe {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.introInfo {
+  display: flex;
+  img {
+    width: 20px;
+    margin-right: 10px;
+  }
+}
+.infoDuration {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 1vh 0;
+  height: 130px;
+  p {
+    padding: 0;
+    margin: 0;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+}
+.info-ingredients {
+  border: 1px solid red;
+  width: 100%;
+  ol {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+  li {
+    width: 100px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 5px;
+  }
+}

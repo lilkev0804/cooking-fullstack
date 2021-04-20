@@ -1,24 +1,31 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import React,{useState, useEffect} from "react";
+import { BrowserRouter as Router,Switch,Route,} from "react-router-dom";
 import Home from './screens/general/Home'
 import Connect from './screens/general/Connect'
 import MyRecipes from './screens/account/MyRecipes'
 import Navbar from './screens/general/Navbar';
 import AddRecipe from "./screens/account/AddRecipe";
 import MyAccount from "./screens/account/MyAccount";
+import Recette from "./screens/general/Recette";
+import RecettePlat from "./screens/general/RecettePlat";
+import RecetteDessert from "./screens/general/RecetteDessert";
 require('dotenv').config()
 
 
 function App() {
+  const [typeLog , setTypeLog] = useState(true)
+
+useEffect(() => {
+  if(localStorage.getItem("token")){
+    setTypeLog(false)
+  }else{
+    setTypeLog(true)
+  }
+}, [])
 
   return (
     <Router>
-      
-        <Navbar></Navbar>
+        <Navbar type={typeLog}></Navbar>
         <Switch>
           <Route exact path="/">
             <Home/>
@@ -31,6 +38,15 @@ function App() {
           </Route>
           <Route path="/compte/ajouter-recettes">
             <AddRecipe />
+          </Route>
+          <Route path="/recette/:id">
+            <Recette></Recette>
+          </Route>
+          <Route path="/recettes/plat">
+            <RecettePlat></RecettePlat>
+          </Route>
+          <Route path="/recettes/dessert">
+           <RecetteDessert/>
           </Route>
           <Route path="/compte">
             <MyAccount />
