@@ -24,7 +24,6 @@ export default function FormSignOut(props) {
           dispatch(login(
               {
                 name: user,
-                token: localStorage.getItem("token")
               }
           ))
           

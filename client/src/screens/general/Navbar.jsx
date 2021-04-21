@@ -70,10 +70,10 @@ export default function Navbar(props) {
         <Link className="logoWeb" to="/">
           Recipes
         </Link>
-        <div className="searchBar">
+        {/* <div className="searchBar">
           <img className="icon-navbar" src="/images/svg/search.svg"></img>
           <input type="text"></input>
-        </div>
+        </div> */}
       </div>
       <div className="navbar-element-account">
         <Link to={user === null ? "/connexion" : "/compte"}>

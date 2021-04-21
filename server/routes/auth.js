@@ -18,9 +18,20 @@ router.post("/register", async (req, res) => {
     name: req.body.name,
     password: hashPassword,
   });
+  const tokenUserinfo = {
+    user: req.body.name,
+    status: "client",
+  };
+  const token = jwt.sign(tokenUserinfo, process.env.TOKEN_SECRET);
+    res.header("Access-Control-Expose-Headers", "x-access-token");
+    res.set("x-access-token", token);
+    console.log(token)
   try {
     const savedUser = await user.save();
     res.send(savedUser);
+
+    
+    res.status(200).send({ details: "user connected" });
   } catch (err) {
     res.status(400).send();
   }

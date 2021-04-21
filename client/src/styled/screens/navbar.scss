@@ -32,7 +32,7 @@
     font-weight: 600;
   }
   .searchBar {
-    width: 60%;
+    width: 50%;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -50,7 +50,7 @@
   }
 }
 .navbar-element-account {
-  width: 10%;
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,6 +58,7 @@
     color: $colorThird;
     font-weight: 600;
     letter-spacing: 1.2px;
+    margin-right: 10px;
   }
 }
 .block-input-menu {

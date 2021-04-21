@@ -124,7 +124,7 @@ console.log(addData)
               <input
                 type="file"
                 id="file"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg , image/webp"
                 onChange={catchPicture}
               />
             </div>
@@ -286,10 +286,11 @@ console.log(addData)
           </div>
           <div className="group-btn">
             {message ? <p>Recette Poster</p> : ""}
-            <button className="validateRecipe" onClick={handleSubmit}>
+            {message ? <Link className="validateRecipe" to="/compte/mes-recettes">Toutes mes recettes</Link> :  <button className="validateRecipe" onClick={handleSubmit}>
               Valider ma recette
-            </button>
-            <button className="SaveRecipe">Sauvegarder ma recette</button>
+            </button>}
+           
+           
           </div>
         </div>
       </div>

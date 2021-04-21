@@ -29,7 +29,6 @@ export default function MyAccount() {
         }
           const fetchData = async () => {
             const req =  await axios.get(`http://localhost:3002/utilisateur/search/${user.name}`)
-            console.log(req.data)
             setDatas(req.data[0])
             setImage(req.data[0].avatar)
           }
@@ -64,15 +63,16 @@ export default function MyAccount() {
           .post("http://localhost:3002/upload/avatar", data)
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
+       if(image){
         axios
-          .delete(`http://localhost:3002/upload/avatar/${image}`)
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
+        .delete(`http://localhost:3002/upload/avatar/${image}`)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+       }
       })
       .catch((err) => console.log(err));
   };
 
-  console.log(datas);
   return (
     <>
       <div className="body-espace">
@@ -90,7 +90,7 @@ export default function MyAccount() {
           </h1>
           <div className="choiceAvatar">
             <div className="actualAvatar">
-              <img className="avatar" src={`/images/avatar/${image}`}></img>
+              {!image ? <p>Ajouter votre avatar</p>: <img className="avatar" alt="avatar de l'utilisateur" src={`/images/avatar/${image}`}></img>}
             </div>
             <div className="modifiedAvatar">
               <label for="avartar">Modifier votre avatar : </label>

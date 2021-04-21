@@ -23,17 +23,19 @@ export default function FormSign(props) {
         .post("http://localhost:3002/auth/register", {
           name: user,
           password: password,
-          passwordConfirm: passwordsd,
         })
         .then((res) => {
-          console.log(res)
           localStorage.setItem("token", res.headers["x-access-token"])
-          console.log("token", localStorage.getItem("token"))
-          dispatch(login({ name: user ,token: localStorage.getItem("token")}));
-          history.push("/compte");
+          dispatch(login(
+              {
+                name: user,
+              }
+          ))
+          history.push('/compte')
+          setMessage(true)
         })
         .catch((error) => {
-          history.push("/");
+          console.log(error)
         });
     }
   };
