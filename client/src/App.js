@@ -6,6 +6,7 @@ import MyRecipes from './screens/account/MyRecipes'
 import Navbar from './screens/general/Navbar';
 import AddRecipe from "./screens/account/AddRecipe";
 import MyAccount from "./screens/account/MyAccount";
+import UpdateRecipe from "./screens/account/UpdateRecipe";
 import Recette from "./screens/general/Recette";
 import RecettePlat from "./screens/general/RecettePlat";
 import RecetteDessert from "./screens/general/RecetteDessert";
@@ -38,6 +39,9 @@ useEffect(() => {
           </Route>
           <Route path="/compte/ajouter-recettes">
             <AddRecipe />
+          </Route>
+          <Route path="/compte/modifier-recettes/:id">
+            <UpdateRecipe></UpdateRecipe>
           </Route>
           <Route path="/recette/:id">
             <Recette></Recette>

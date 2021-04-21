@@ -18,8 +18,8 @@ router.put("/:id", (req, res) => {
   User.findById(req.params.id, function (err, user) {
     if (err) {
       res.send(err);
-    }c
-    user.info = req.body.info;
+    }
+    user.avatar = req.body.avatar;
     user.save(function (err) {
       if (err) {
         res.send(err);

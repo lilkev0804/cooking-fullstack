@@ -7,6 +7,7 @@ import axios from "axios";
 export default function MyAccount() {
   const user = useSelector(selectUser);
   const [datas, setDatas] = useState();
+  const [image, setImage] =useState()
   const [file, setFile] = useState({
     data: "",
     name: "",
@@ -26,13 +27,17 @@ export default function MyAccount() {
         if (res.data.mess === "null") {
           history.push("/connexion");
         }
-        axios
-      .get(`http://localhost:3002/utilisateur/search/${user.name}`)
-      .then((res) => setDatas(res.data[0]))
+          const fetchData = async () => {
+            const req =  await axios.get(`http://localhost:3002/utilisateur/search/${user.name}`)
+            console.log(req.data)
+            setDatas(req.data[0])
+            setImage(req.data[0].avatar)
+          }
+            fetchData()
       })
       .catch((err) => console.log(err));
-    
   }, []);
+
 
   const handleDisconnect = () => {
     localStorage.removeItem("token");
@@ -48,9 +53,10 @@ export default function MyAccount() {
   const handleUpdateImage = async () => {
     axios
       .put(`http://localhost:3002/utilisateur/${datas._id}`, {
-        info: [`${file.name}`],
+        avatar: file.name,
       })
       .then((res) => {
+        console.log(res);
         const data = new FormData();
         data.append("name", file.name);
         data.append("file", file.data);
@@ -58,11 +64,15 @@ export default function MyAccount() {
           .post("http://localhost:3002/upload/avatar", data)
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
+        axios
+          .delete(`http://localhost:3002/upload/avatar/${image}`)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
 
-  console.log(datas)
+  console.log(datas);
   return (
     <>
       <div className="body-espace">
@@ -79,9 +89,9 @@ export default function MyAccount() {
             Bienvenue <span className="userConnect">{user.name}</span>
           </h1>
           <div className="choiceAvatar">
-            {/* <div className="actualAvatar">
-              <img className="avatar" src={`/images/avatar/${datas.info[0]}`}></img>
-            </div> */}
+            <div className="actualAvatar">
+              <img className="avatar" src={`/images/avatar/${image}`}></img>
+            </div>
             <div className="modifiedAvatar">
               <label for="avartar">Modifier votre avatar : </label>
               <input

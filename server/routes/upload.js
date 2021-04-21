@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const multer = require('multer')
+const fs =require("fs")
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,17 +30,16 @@ router.post('/avatar', uploadSd.single('file'), function (req) {
   console.log(file)
 })
 
-// router.delete("/id" , (req,res) => { 
-
-//     fs.unlink(
-//         `../remoteFR-R2dwild-P3-cubecraft-front/public/images/${namePhoto}`,
-//         err => {
-//           if (err) {
-//             throw err
-//           }
-//           console.log('File is deleted.')
-//         }
-//       )
-// })
+router.delete("/avatar/:name" , (req,res) => { 
+    fs.unlink(
+        `../client/public/images/avatar/${req.params.name}`,
+        err => {
+          if (err) {
+            throw err
+          }
+          console.log('File is deleted.')
+        }
+      )
+})
 
 module.exports = router

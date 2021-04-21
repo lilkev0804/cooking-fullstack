@@ -59,7 +59,7 @@ export default function FormSignOut(props) {
           ></img>
         </div>
       </div>
-      <button type="submit">Se connecter </button>
+      <button className="btn" type="submit">Se connecter </button>
       {message ? '' : <p>Information non valide</p>}
     </form>
   );

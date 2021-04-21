@@ -95,7 +95,7 @@ export default function FormSign(props) {
           ></img>
         </div>
       </div>
-      <button onClick={handleSubmit}>S'enregistrer</button>
+      <button className="btn" onClick={handleSubmit}>S'enregistrer</button>
       {message ? "" : <p>Information erreur sur votre mot de passe</p>}
     </div>
   );

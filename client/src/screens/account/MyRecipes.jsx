@@ -17,7 +17,6 @@ export default function MyRecipes() {
     fetchData();
   }, [refresh]);
 
-  console.log(data);
 
   const handleDelete = async (e) => {
     const id = e.target.id;
@@ -41,7 +40,7 @@ export default function MyRecipes() {
                 imageUrl={info.pictureName}
                 name={info.title}
               ></CardRecipe>
-              <button className="btn">Modifier</button>
+              <Link to={`/compte/modifier-recettes/${info._id}`} className="btn">Modifier</Link>
               <button
                 data-img={info.pictureName}
                 id={`${info._id}`}

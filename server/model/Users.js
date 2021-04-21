@@ -13,9 +13,11 @@ const userSchema = new mongoose.Schema({
         max:1024,
         min: 8
     },
-    info:{
-        type: Array,
-        required :false
+    avatar:{
+        type: String,
+        required: false,
+        max:2004,
+        min: 8
     },
     date: {
         type: Date,
