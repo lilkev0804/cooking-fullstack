@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ImagePriceWhite from "./ImagePriceWhite";
 
 export default function CardRecipe(props) {
   return (
@@ -30,13 +31,20 @@ export default function CardRecipe(props) {
           {props.delais}
         </div>
         <div className="price-card">
-         {props.prix}
-          <img
-            className="icon-card"
-            src="/images/svg/euro.svg"
-            alt="logo euro"
-          ></img>
-         
+          {props.prix === "Economique" ? (
+            <ImagePriceWhite />
+          ) : props.prix === "Abordable" ? (
+            <>
+              <ImagePriceWhite />
+              <ImagePriceWhite />
+            </>
+          ) : (
+            <>
+              <ImagePriceWhite />
+              <ImagePriceWhite />
+              <ImagePriceWhite />
+            </>
+          )}
         </div>
       </div>
     </div>

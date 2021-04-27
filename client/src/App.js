@@ -10,6 +10,7 @@ import UpdateRecipe from "./screens/account/UpdateRecipe";
 import Recette from "./screens/general/Recette";
 import RecettePlat from "./screens/general/RecettePlat";
 import RecetteDessert from "./screens/general/RecetteDessert";
+import RecetteEntre from "./screens/general/RecetteEntre";
 require('dotenv').config()
 
 
@@ -51,6 +52,9 @@ useEffect(() => {
           </Route>
           <Route path="/recettes/dessert">
            <RecetteDessert/>
+          </Route>
+          <Route path="/recettes/entre">
+           <RecetteEntre/>
           </Route>
           <Route path="/compte">
             <MyAccount />

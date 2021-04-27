@@ -2,34 +2,49 @@
   width: 100%;
   height: 90px;
   display: flex;
+  margin: 0 auto;
   align-items: center;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
   justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.7);
   a {
     text-decoration: none;
   }
 }
+
 .fixed-navbar {
-  position: fixed;
+ 
   top: 0px;
 }
 .navbar-element-menu {
-  width: 10%;
   height: 100%;
+width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .navbar-element-search {
-  width: 70%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   height: 100%;
+  width: 80%;
+  p{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
   .logoWeb {
     font-size: 2rem;
     color: #a4330d;
     letter-spacing: 1.4px;
     font-weight: 600;
+  }
+  .maurituisFlag{
+    width: 50px;
+    margin: 0 10px;
   }
   .searchBar {
     width: 50%;
@@ -50,15 +65,15 @@
   }
 }
 .navbar-element-account {
-  width: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 10%;
   a {
     color: $colorThird;
     font-weight: 600;
     letter-spacing: 1.2px;
-    margin-right: 10px;
   }
 }
 .block-input-menu {

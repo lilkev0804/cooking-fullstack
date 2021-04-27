@@ -21,6 +21,7 @@ const storageSd = multer.diskStorage({
   }
 })
 let uploadSd = multer({ storage: storageSd })
+
 router.post('/', upload.single('file'), function (req) {
   const { file } = req
   console.log(file)

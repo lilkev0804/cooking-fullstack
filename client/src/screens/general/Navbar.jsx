@@ -5,16 +5,27 @@ import { selectUser } from "../../features/userSlice";
 
 export default function Navbar(props) {
   const [burgerMenu, setBurgerMenu] = useState(true);
+  const [scroll ,setScroll] =useState(false)
   const user = useSelector(selectUser);
   const handleMenu = () => {
     setBurgerMenu(!burgerMenu);
   };
 
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 100) {
+      setScroll(true);
+      console.log('hello')
+    } else {
+      setScroll(false);
+    }
+  });
+  
   return (
     <div
-      className={`Navbar ${window.scroll() > 200 ? "fixed-navbar" : ""}`}
-      style={{ display: `${props.visible}` }}
+      className={`Navbar`}
+      style={{ display: `${props.visible}` , position :`${scroll ? "fixed" : "relative"}`}}
     >
+      <div className="transition"></div>
       <div
         className="burgerMenuContainer"
         style={{ display: `${burgerMenu === true ? "none" : "flex"}` }}
@@ -66,15 +77,19 @@ export default function Navbar(props) {
           <span className="block-menu"></span>
         </div>
       </div>
-      <div className="navbar-element-search">
-        <Link className="logoWeb" to="/">
+      <Link to="/" className="navbar-element-search">
+        <p className="logoWeb" >
+          Mauritius
+        </p>
+        <img
+          alt="Drapeau de l'ile maurice"
+          className="maurituisFlag"
+          src="/images/svg/mauritius.svg"
+        ></img>
+        <p className="logoWeb">
           Recipes
-        </Link>
-        {/* <div className="searchBar">
-          <img className="icon-navbar" src="/images/svg/search.svg"></img>
-          <input type="text"></input>
-        </div> */}
-      </div>
+        </p>
+      </Link>
       <div className="navbar-element-account">
         <Link to={user === null ? "/connexion" : "/compte"}>
           {user === null ? "Connexion" : "Mon compte"}
