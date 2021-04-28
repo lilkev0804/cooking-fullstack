@@ -9,7 +9,7 @@ dotenv.config();
 
 router.post("/register", async (req, res) => {
   const userExist = await User.findOne({ name: req.body.name });
-  if (userExist) return res.status(400).send("user already exist");
+  if (userExist) return res.status(405).send("user already exist");
 
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);

@@ -5,7 +5,7 @@ import { selectUser } from "../../features/userSlice";
 
 export default function Navbar(props) {
   const [burgerMenu, setBurgerMenu] = useState(true);
-  const [scroll ,setScroll] =useState(false)
+  const [scroll, setScroll] = useState(false);
   const user = useSelector(selectUser);
   const handleMenu = () => {
     setBurgerMenu(!burgerMenu);
@@ -14,16 +14,18 @@ export default function Navbar(props) {
   window.addEventListener("scroll", function () {
     if (window.scrollY > 100) {
       setScroll(true);
-      console.log('hello')
     } else {
       setScroll(false);
     }
   });
-  
+
   return (
     <div
       className={`Navbar`}
-      style={{ display: `${props.visible}` , position :`${scroll ? "fixed" : "relative"}`}}
+      style={{
+        display: `${props.visible}`,
+        position: `${scroll ? "fixed" : "relative"}`,
+      }}
     >
       <div className="transition"></div>
       <div
@@ -78,17 +80,13 @@ export default function Navbar(props) {
         </div>
       </div>
       <Link to="/" className="navbar-element-search">
-        <p className="logoWeb" >
-          Mauritius
-        </p>
+        <p className="logoWeb">Mauritius</p>
         <img
           alt="Drapeau de l'ile maurice"
           className="maurituisFlag"
           src="/images/svg/mauritius.svg"
         ></img>
-        <p className="logoWeb">
-          Recipes
-        </p>
+        <p className="logoWeb">Recipes</p>
       </Link>
       <div className="navbar-element-account">
         <Link to={user === null ? "/connexion" : "/compte"}>

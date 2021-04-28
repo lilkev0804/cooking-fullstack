@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Editor } from "@tinymce/tinymce-react";
 import { selectUser } from "../../features/userSlice";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import NewIngredient from "../../components/NewIngredient";
 
 require("dotenv").config();
 
 export default function AddRecipe() {
     const user = useSelector(selectUser);
   let history = useHistory();
-  const [initialValue, setInitialValue] = useState("");
+
   const [message, setMessage] = useState(false);
   const [file, setFile] = useState({
     data: "",
@@ -19,6 +19,7 @@ export default function AddRecipe() {
   });
   const [addData, setAddData] = useState({
     type: "",
+    personne:'',
     proprietaire: user.name,
     title: "",
     pictureName: "",
@@ -35,13 +36,14 @@ export default function AddRecipe() {
     cuissonTimeFormat: "",
     etapes: "Aucune",
   });
-
+  const [actualImg, setActualImg] = useState()
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
         const res = await axios.get(`http://localhost:3002/recette/${id}`);
-        setAddData({ type: res.data.type ,title: res.data.title ,pictureName: res.data.pictureName,timing: res.data.timing , timingFormat: res.data.timingFormat, difficulty: res.data.difficulty,prix: res.data.prix, ingredients: res.data.ingredients, preparationTime: res.data.preparationTime ,preparationTimeFormat: res.data.preparationTimeFormat , reposTime : res.data.reposTime , reposTimeFormat : res.data.reposTimeFormat , cuissonTime : res.data.cuissonTime ,cuissonTimeFormat : res.data.cuissonTimeFormat ,etapes : res.data.etapes});
+        setAddData({ type: res.data.type ,title: res.data.title ,personne : res.data.personne,pictureName: res.data.pictureName,timing: res.data.timing , timingFormat: res.data.timingFormat, difficulty: res.data.difficulty,prix: res.data.prix, ingredients: res.data.ingredients, preparationTime: res.data.preparationTime ,preparationTimeFormat: res.data.preparationTimeFormat , reposTime : res.data.reposTime , reposTimeFormat : res.data.reposTimeFormat , cuissonTime : res.data.cuissonTime ,cuissonTimeFormat : res.data.cuissonTimeFormat ,etapes : res.data.etapes})
+        setActualImg(res.data.pictureName);
       };
       fetchData();
     const token = localStorage.getItem("token");
@@ -59,16 +61,9 @@ export default function AddRecipe() {
       })
       .catch((err) => console.log(err));
   }, []);
-
+console.log(addData.personne)
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
-
-  const handleEditorChange = (content, editor) => {
-    setAddData({ ...addData, etapes: content });
-  };
-  const handleEditorChangeSD = (content, editor) => {
-    setAddData({ ...addData, ingredients: content });
-  };
 
   const catchPicture = (e) => {
     setFile({
@@ -80,11 +75,11 @@ export default function AddRecipe() {
       pictureName: e.target.files[0].name.replace(/ /g, ""),
     });
   };
-
   const handleSubmit = async () => {
     await axios
       .put(`http://localhost:3002/recette/modified/${id}`, {
         title : addData.title,
+        personne: addData.personne,
         type: addData.type,
         proprietaire: user.name,
         pictureName: addData.pictureName,
@@ -103,16 +98,21 @@ export default function AddRecipe() {
       })
       .then((res) => {
         setMessage(!message)
+        axios
+        .delete(`http://localhost:3002/upload/picture/${actualImg}`)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-    // const data = new FormData();
-    // data.append("name", file.name);
-    // data.append("file", file.data);
-    // await axios
-    //   .post("http://localhost:3002/upload", data)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
+      const data = new FormData();
+      data.append("name", file.name);
+      data.append("file", file.data);
+      await axios
+        .post("http://localhost:3002/upload", data)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
   };
+
 
   return (
     <>
@@ -154,9 +154,15 @@ export default function AddRecipe() {
               <input
                 type="file"
                 id="file"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg , image/webp"
                 onChange={catchPicture}
               />
+            </div>
+            <div className="numberPersonne">
+              <p>Recette pour  </p>
+              <input type="text" name="personne" value={addData.personne}
+                    onChange={onChange}></input>
+              <p>personne{parseInt(addData.personne) > 1 ? "s" :null} .</p>
             </div>
             <div className="generalInfo">
               <div className="timing">
@@ -204,26 +210,7 @@ export default function AddRecipe() {
             </div>
             <div className="ingredient">
               <h2>Les ingredients</h2>
-              <Editor
-                initialValue={addData.ingredients}
-                apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
-                name="text"
-                outputFormat="text"
-                onEditorChange={handleEditorChangeSD}
-                init={{
-                  height: 400,
-                  forced_root_block: false,
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image",
-                    "charmap print preview anchor help",
-                    "searchreplace visualblocks code",
-                    "a_tinymce_plugin",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar: "Numlist",
-                }}
-              />
+              <div>{addData.ingredients}</div>
             </div>
             <div className="recapTiming">
               <h2>Le Timing</h2>
@@ -292,26 +279,7 @@ export default function AddRecipe() {
             </div>
             <div className="stepRecipe">
               <h2>Les étapes</h2>
-              <Editor
-                initialValue={addData.etapes}
-                apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
-                name="text"
-                outputFormat="text"
-                onEditorChange={handleEditorChange}
-                init={{
-                  height: 400,
-                  forced_root_block: false,
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image",
-                    "charmap print preview anchor help",
-                    "searchreplace visualblocks code",
-                    "a_tinymce_plugin",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar: "Numlist",
-                }}
-              />
+             <div>{addData.etapes}</div>
             </div>
           </div>
           <div className="group-btn">

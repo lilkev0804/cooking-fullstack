@@ -8,7 +8,7 @@ export default function CardRecipe(props) {
       <div
         className="bg-card"
         style={{
-          backgroundImage: `url(/images/${props.imageUrl})`,
+          backgroundImage: `url(/images/recettes/${props.imageUrl})`,
         }}
       ></div>
       <div className="details-card">

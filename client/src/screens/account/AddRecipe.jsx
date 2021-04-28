@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Editor } from "@tinymce/tinymce-react";
 import { selectUser } from "../../features/userSlice";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import NewIngredient from "../../components/NewIngredient";
+import NewIngredientSD from "../../components/NewIngredientSD";
 
 require("dotenv").config();
+
 export default function AddRecipe() {
   const user = useSelector(selectUser);
   let history = useHistory();
-  const [initialValue, setInitialValue] = useState("");
-  const [description, setDescription] = useState("");
-  const [message, setMessage] =useState(false)
+  const [message, setMessage] = useState(false);
+  const [catchIngredient, setCatchIngredient] = useState();
+  const [catchStep, setCatchStep] = useState()
   const [file, setFile] = useState({
     data: "",
     name: "",
   });
+  const [ingredient, setIngredient] = useState([]);
+  const [etapes, setEtape] = useState([]);
   const [addData, setAddData] = useState({
     type: "",
+    personne:"",
     proprietaire: user.name,
     title: "",
     pictureName: "",
@@ -26,15 +31,16 @@ export default function AddRecipe() {
     timingFormat: "",
     difficulty: "",
     prix: "",
-    ingredients: "",
     preparationTime: "",
     preparationTimeFormat: "",
     reposTime: "",
     reposTimeFormat: "",
     cuissonTime: "",
     cuissonTimeFormat: "",
-    etapes: "Aucune",
   });
+
+  const [alertIngredient, setAlertIngredient] = useState(false)
+  const [alertStep, setAlertStep] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -56,28 +62,56 @@ export default function AddRecipe() {
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
 
-  const handleEditorChange = (content, editor) => {
-    setAddData({ ...addData, etapes: content });
-  };
-  const handleEditorChangeSD = (content, editor) => {
-    setAddData({ ...addData, ingredients: content });
-  };
 
   const catchPicture = (e) => {
     setFile({
       data: e.target.files[0],
       name: e.target.files[0].name.replace(/ /g, ""),
-    })
-    setAddData({ ...addData, pictureName: e.target.files[0].name.replace(/ /g, "") })
+    });
+    setAddData({
+      ...addData,
+      pictureName: e.target.files[0].name.replace(/ /g, ""),
+    });
   };
-  
-  const handleSubmit = async () => {
+  const addIngredient = () => {
+    if(catchIngredient === undefined || catchIngredient === ""){
+      setAlertIngredient(true)
+      setTimeout(() => {
+        setAlertIngredient(false)
+      }, 4000);
+    }else{
+      setIngredient((oldArray) => [...oldArray, catchIngredient]);
+      setCatchIngredient('')
+    }
+    
+  };
+  const deleteIngredient = (i) => {
+    ingredient.splice(i, 1);
+  };
+  const addStep = () => {
+    if(catchStep === undefined || catchStep === ""){
+      setAlertStep(true)
+      setTimeout(() => {
+        setAlertStep(false)
+      }, 4000);
+    }else{
+      setEtape((oldArray) => [...oldArray, catchStep]);
+      setCatchStep('')
+    }
+  };
+  const deleteStep = (i) => {
+    etapes.splice(i, 1);
+  };
+
+   const handleSubmit = async (e) => {
     await axios
       .post("http://localhost:3002/recette/ajouter", {
         ...addData,
+        ingredient,
+        etapes
       })
-      .then( (res) => {
-        setMessage(!message)
+      .then((res) => {
+        setMessage(!message);
       })
       .catch((err) => console.log(err));
     const data = new FormData();
@@ -88,8 +122,6 @@ export default function AddRecipe() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
-
-console.log(addData)
 
   return (
     <>
@@ -102,7 +134,7 @@ console.log(addData)
           <div className="input-recipes">
             <div className="first-info">
               <p>
-                Nom De la recette :{" "}
+                Nom de la recette :{" "}
                 <input
                   name="title"
                   value={addData.title}
@@ -122,15 +154,22 @@ console.log(addData)
             </div>
             <div className="choiceImg">
               <input
+              className="add-element"
                 type="file"
                 id="file"
                 accept="image/png, image/jpeg , image/webp"
                 onChange={catchPicture}
               />
             </div>
+            <div className="numberPersonne">
+              <p>Recette pour  </p>
+              <input type="text" name="personne" value={addData.personne}
+                    onChange={onChange}></input>
+              <p>personne{parseInt(addData.personne) > 1 ? "s" :null} .</p>
+            </div>
             <div className="generalInfo">
               <div className="timing">
-                <p>Durée : </p>
+                <p>Durée total: </p>
                 <div>
                   <input
                     type="text"
@@ -173,27 +212,24 @@ console.log(addData)
               </div>
             </div>
             <div className="ingredient">
-              <h2>Les ingredients</h2>
-              <Editor
-                initialValue={initialValue}
-                apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
-                name="text"
-                outputFormat='text'
-                onEditorChange={handleEditorChangeSD}
-                init={{
-                  height: 400,
-                  forced_root_block: false,
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image",
-                    "charmap print preview anchor help",
-                    "searchreplace visualblocks code",
-                    "a_tinymce_plugin",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar: "Numlist",
-                }}
-              />
+              <div className="container-add">
+                <NewIngredient
+                type="un ingredient"
+                  onClick={addIngredient}
+                  value={catchIngredient}
+                  onChange={(e) => setCatchIngredient(e.target.value)}
+                ></NewIngredient>
+                {alertIngredient ? <p className="alertAdd">Merci de renseigner un ingredient</p> : null }
+                <div className="container-recipeAdd">
+                  {ingredient.map((ing, i) => (
+                    <NewIngredientSD
+                      key={i}
+                      ingredient={ing}
+                      onClick={() => deleteIngredient(i)}
+                    ></NewIngredientSD>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className="recapTiming">
               <h2>Le Timing</h2>
@@ -261,36 +297,38 @@ console.log(addData)
               </div>
             </div>
             <div className="stepRecipe">
-              <h2>Les étapes</h2>
-              <Editor
-                initialValue={initialValue}
-                apiKey="d8vdl5fl2jv5okarhsoyy3i8cbbxi05lls70wrap220pcut6"
-                name="text"
-                outputFormat='text'
-                onEditorChange={handleEditorChange}
-                init={{
-                  height: 400,
-                  forced_root_block: false,
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image",
-                    "charmap print preview anchor help",
-                    "searchreplace visualblocks code",
-                    "a_tinymce_plugin",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar: "Numlist",
-                }}
-              />
+              <div className="container-add">
+                <NewIngredient
+                type="une etape"
+                  onClick={addStep}
+                  value={catchStep}
+                  onChange={(e) => setCatchStep(e.target.value)}
+                ></NewIngredient>
+                  {alertStep ? <p className="alertAdd">Merci de renseigner une étape .</p> : null }
+                <div className="container-recipeAdd">
+                  {etapes.map((ing, i) => (
+                    <NewIngredientSD
+                      id={`${i + 1} Etapes`}
+                      key={i}
+                      ingredient={ing}
+                      onClick={() => deleteStep(i)}
+                    ></NewIngredientSD>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="group-btn">
             {message ? <p>Recette Poster</p> : ""}
-            {message ? <Link className="validateRecipe" to="/compte/mes-recettes">Toutes mes recettes</Link> :  <button className="validateRecipe" onClick={handleSubmit}>
-              Valider ma recette
-            </button>}
-           
-           
+            {message ? (
+              <Link className="validateRecipe" to="/compte/mes-recettes">
+                Toutes mes recettes
+              </Link>
+            ) : (
+              <button className="validateRecipe" onClick={handleSubmit}>
+                Valider ma recette
+              </button>
+            )}
           </div>
         </div>
       </div>

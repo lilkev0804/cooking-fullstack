@@ -41,3 +41,16 @@ h2 {
     justify-content: space-evenly;
   }
 }
+.logoToTop{
+  width: 40px;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+}
+.back-lastPage{
+  position: absolute;
+  color : $colorSecondary;
+  left: 50px;
+  cursor: pointer;
+}

@@ -7,6 +7,12 @@ const userSchema = new mongoose.Schema({
         max:500,
         min: 8
     },
+    personne:{
+        type: String,
+        required: true,
+        max:500,
+        min: 1
+    },
     proprietaire: {
         type: String,
         required: true,
@@ -50,7 +56,7 @@ const userSchema = new mongoose.Schema({
         min: 0,
     },
     ingredients:{
-        type: String,
+        type: Array,
         required: true,
         max:5000,
         min: 0,
@@ -69,13 +75,13 @@ const userSchema = new mongoose.Schema({
     },
     reposTime:{
         type: String,
-        required: true,
+        required: false,
         max:50,
         min: 0,
     },
     reposTimeFormat:{
         type: String,
-        required: true,
+        required: false,
         max:50,
         min: 0,
     },
@@ -92,7 +98,7 @@ const userSchema = new mongoose.Schema({
         min: 0,
     },
     etapes:{
-        type: String,
+        type: Array,
         required: true,
         max:5000,
         min: 0,

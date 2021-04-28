@@ -5,6 +5,7 @@ const Recipes = require("../model/Recipes");
 router.post("/ajouter", async (req, res) => {
   const recipe = new Recipes({
     type: req.body.type,
+    personne : req.body.personne,
     proprietaire: req.body.proprietaire,
     title: req.body.title,
     pictureName: req.body.pictureName,
@@ -12,7 +13,7 @@ router.post("/ajouter", async (req, res) => {
     timingFormat: req.body.timingFormat,
     difficulty: req.body.difficulty,
     prix: req.body.prix,
-    ingredients: req.body.ingredients,
+    ingredients: req.body.ingredient,
     preparationTime: req.body.preparationTime,
     preparationTimeFormat: req.body.preparationTimeFormat,
     reposTime: req.body.reposTime,
@@ -25,6 +26,7 @@ router.post("/ajouter", async (req, res) => {
     const savedRecipes = await recipe.save();
     res.send(savedRecipes);
   } catch (err) {
+    console.log(err)
     res.status(400).send();
   }
 });
@@ -44,7 +46,7 @@ router.delete("/:id/:name", (req, res) => {
     }
     res.json({message:"Bravo, recette supprimée"}); 
     fs.unlink(
-      `../client/public/images/${namePhoto}`,
+      `../client/public/images/recettes/${namePhoto}`,
       err => {
         if (err) {
           throw err
@@ -80,6 +82,7 @@ router.put("/modified/:id", (req, res) => {
       res.send(err);
     }else{
       recipes.type= req.body.type,
+      recipes.personne = req.body.personne, 
       recipes.proprietaire= req.body.proprietaire,
       recipes.title= req.body.title
       recipes.pictureName= req.body.pictureName,

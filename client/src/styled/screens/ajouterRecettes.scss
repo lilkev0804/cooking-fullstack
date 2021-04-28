@@ -6,7 +6,6 @@
   p {
     font-weight: 400;
     letter-spacing: 1.2px;
-    text-transform: capitalize;
   }
   .titleModified{
     color : $colorSecondary !important;
@@ -25,7 +24,6 @@
       p {
         margin: 10px 10px;
         font-weight: 600;
-        text-transform: capitalize;
       }
     }
     .choiceImg {
@@ -40,11 +38,11 @@
     }
     .generalInfo {
       height: 100px;
+      max-width: 600px;
       width: 100%;
       display: flex;
       margin: 2vh auto;
       justify-content: space-around;
-
       .timing,
       .difficulty,
       .price {
@@ -57,17 +55,39 @@
         input {
           padding: 0;
           margin: 0;
+          width: 100px;
         }
       }
     }
     .ingredient {
-      max-width: 600px;
-      margin: 5vh auto;
+      max-width: 800px;
       width: 100%;
-      margin: 2vh auto;
+      margin: 5vh auto;
+      .container-add{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .new-ingredient{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          .form-group{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            textarea {
+              max-width: 300px;
+              width: 100%;
+              margin: 0.5rem 0;
+            }
+          }
+        }
+      }
     }
     .recapTiming {
-      width: 95%;
+      max-width: 600px;
+      width: 100%;
       margin: 4vh auto;
       display: flex;
       flex-direction: column;
@@ -84,6 +104,9 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+          input{
+            width: 100px;
+          }
           div {
             display: flex;
           }
@@ -91,8 +114,33 @@
       }
     }
     .stepRecipe {
-      width: 600px;
+      max-width: 800px;
+      width: 100%;
       margin: 5vh auto;
+      .container-add{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .new-ingredient{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          .form-group{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h2{
+              text-align: center;
+            }
+            textarea {
+              max-width: 300px;
+              width: 100%;
+              margin: 0.5rem 0;
+            }
+          }
+        }
+      }
     }
   }
   .validateRecipe {
@@ -139,3 +187,82 @@
     align-items: center;
   }
 }
+
+.add-element{
+  margin: 2px auto;
+  background-color: #6c9e4f;
+  padding: 8px 16px;
+  color: white;
+  text-transform: capitalize;
+  letter-spacing: 1.2px;
+  font-size: 500;
+  border-color: transparent;
+  transition: all 0.5s ease-in-out;
+  border-radius: 10px;
+}
+.add-element:active{
+  background-color: #6c9e4f65;
+  transform: scale(0.9);
+}
+
+.supp-element{
+  margin: 2px auto;
+  background-color: #a4330d;
+  padding: 8px 16px;
+  color: white;
+  text-transform: capitalize;
+  letter-spacing: 1.2px;
+  font-size: 500;
+  border-color: transparent;
+  transition: all 0.5s ease-in-out;
+  border-radius: 10px;
+}
+.supp-element:active{
+  background-color: #a4330d63;
+  transform: scale(0.9);
+}
+.alertAdd{
+  text-transform: none !important;
+  font-weight: 600;
+}
+.container-recipeAdd{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  .new-ingredient{
+    min-width: 120px;
+    width: 80% !important;
+    border: 2px solid #6c9e4f;
+    padding: 2px 2px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 2vh 5px !important;
+    p{
+      color : $colorPrimary;
+      text-align: justify;
+    }
+  }
+}
+
+.numberPersonne{
+  max-width: 800px;
+  width: 100%;
+  margin: 5vh auto;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+    p{
+      text-transform: none;
+      font-weight: 600;
+    }
+    input{
+      width :20px;
+      margin: 0 3px;
+      border: none;
+      background-color: #6c9e4f;
+      padding: 5px;
+      text-align: center;
+    }
+  }

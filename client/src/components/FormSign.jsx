@@ -10,13 +10,17 @@ export default function FormSign(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [passwordsd, setPasswordsd] = useState();
-  const [message, setMessage] = useState(true);
+  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (password !== passwordsd) {
-      setMessage(!message);
+      setMessage("Information erreur sur votre mot de passe");
+      setTimeout(() => {
+                setMessage('')
+              }, 4000);
     } else {
       e.preventDefault();
       axios
@@ -35,7 +39,15 @@ export default function FormSign(props) {
           setMessage(true)
         })
         .catch((error) => {
-          console.log(error)
+          if(error.response.status === 405){
+              setMessage('Utilisateur deja existant')
+              setTimeout(() => {
+                setMessage('')
+              }, 4000);
+          }else{
+            console.log(error)
+          }
+          
         });
     }
   };
@@ -49,13 +61,14 @@ export default function FormSign(props) {
     }
   };
   return (
-    <div className="form-to-account" style={{ display: `${props.show}` }}>
+    <form onSubmit={handleSubmit} className="form-to-account" style={{ display: `${props.show}` }}>
       <div className="form-group-connect left" >
         <label for="username">Identifiant :</label>
         <input
           name="username"
           type="text"
           value={user}
+          required
           onChange={(e) => setUser(e.target.value)}
         ></input>
       </div>
@@ -66,6 +79,7 @@ export default function FormSign(props) {
             name="password"
             type={showPass ? "password" : ""}
             value={password}
+            required
             onChange={(e) => setPassword(e.target.value)}
           ></input>
 
@@ -85,6 +99,7 @@ export default function FormSign(props) {
             name="password-confirm"
             type={showPassSd ? "password" : ""}
             value={passwordsd}
+            required
             onChange={(e) => setPasswordsd(e.target.value)}
           ></input>
 
@@ -97,8 +112,8 @@ export default function FormSign(props) {
           ></img>
         </div>
       </div>
-      <button className="btn" onClick={handleSubmit}>S'enregistrer</button>
-      {message ? "" : <p>Information erreur sur votre mot de passe</p>}
-    </div>
+      <button className="btn" type="onSubmit">S'enregistrer</button>
+      {message === ""  ? null : <p>{message}</p>}
+    </form>
   );
 }

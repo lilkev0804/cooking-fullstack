@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CardRecipe from "../../components/CardRecipe";
+import Back from "../../components/Back";
 
 export default function RecettePlat() {
   const [datas, setDatas] = useState([]);
@@ -15,6 +16,7 @@ export default function RecettePlat() {
 
   return (
     <div className="Container-Recipe">
+      <Back></Back>
       <h1>les plat</h1>
       <div className="all-recipe">
         {datas.map((data, index) => (
