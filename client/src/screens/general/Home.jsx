@@ -17,16 +17,8 @@ export default function Home() {
 
   return (
     <div >
-      {/* <div className="top-home">
-        {topHome.map((idea) => (
-          <div key={`idea-${idea.id}`} className="container-bubbleIdea">
-            <div className="bubbleIdea"></div>
-            <p>{idea.name}</p>
-          </div>
-        ))}
-      </div> */}
       <div className="hero" style={{backgroundImage: `url("/assets/hero-bg.jpg")`}}>
-
+        
       </div>
       <div className="Container home-general">
       <h1 style={{ textAlign :"center"}}>Toutes nos recettes</h1>

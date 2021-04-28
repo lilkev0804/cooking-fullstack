@@ -38,7 +38,6 @@ export default function Navbar(props) {
         >
           X
         </span>
-        {/* <Link className="link-burger" onClick={e => setBurgerMenu(!burgerMenu)}>Recette du jours</Link> */}
         <Link
           to="/"
           className="link-burger"

@@ -28,6 +28,7 @@ function Recette() {
     <div className="Container onlyRecipe">
       <Back></Back>
       <h1 className="nameRecipe">{datas.title}</h1>
+      <p>Une recette de {datas.proprietaire}</p>
       <p>Recette pour {datas.personne} personne{parseInt(datas.personne) > 1 ? "s" : null}</p>
       <div className="introInfo">
         {datas.difficulty === "Simple" ? (

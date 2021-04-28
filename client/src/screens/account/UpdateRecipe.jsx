@@ -11,7 +11,6 @@ require("dotenv").config();
 export default function AddRecipe() {
     const user = useSelector(selectUser);
   let history = useHistory();
-
   const [message, setMessage] = useState(false);
   const [file, setFile] = useState({
     data: "",
@@ -61,7 +60,6 @@ export default function AddRecipe() {
       })
       .catch((err) => console.log(err));
   }, []);
-console.log(addData.personne)
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
 
@@ -75,6 +73,7 @@ console.log(addData.personne)
       pictureName: e.target.files[0].name.replace(/ /g, ""),
     });
   };
+
   const handleSubmit = async () => {
     await axios
       .put(`http://localhost:3002/recette/modified/${id}`, {
@@ -96,21 +95,26 @@ console.log(addData.personne)
         cuissonTimeFormat: addData.cuissonTimeFormat,
         etapes: addData.etapes,
       })
-      .then((res) => {
+      .then( async (res)  => {
+        if(addData.pictureName === actualImg){
+          setMessage(!message)
+        }else{
         setMessage(!message)
         axios
         .delete(`http://localhost:3002/upload/picture/${actualImg}`)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
-      const data = new FormData();
-      data.append("name", file.name);
-      data.append("file", file.data);
-      await axios
+        const data = new FormData();
+        data.append("name", file.name);
+        data.append("file", file.data);
+        await axios
         .post("http://localhost:3002/upload", data)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+      
   };
 
 
