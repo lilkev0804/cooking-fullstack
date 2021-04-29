@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import NewIngredient from "../../components/NewIngredient";
-import NewIngredientSD from "../../components/NewIngredientSD";
+import NewIngredientSDModified from "../../components/NewIngredientSDModified";
 
 require("dotenv").config();
 
@@ -62,7 +62,6 @@ export default function AddRecipe() {
   const onChange = (e) =>
     setAddData({ ...addData, [e.target.name]: e.target.value });
 
-
   const catchPicture = (e) => {
     setFile({
       data: e.target.files[0],
@@ -83,11 +82,8 @@ export default function AddRecipe() {
       setIngredient((oldArray) => [...oldArray, catchIngredient]);
       setCatchIngredient('')
     }
-    
   };
-  const deleteIngredient = (i) => {
-    ingredient.splice(i, 1);
-  };
+
   const addStep = () => {
     if(catchStep === undefined || catchStep === ""){
       setAlertStep(true)
@@ -98,9 +94,6 @@ export default function AddRecipe() {
       setEtape((oldArray) => [...oldArray, catchStep]);
       setCatchStep('')
     }
-  };
-  const deleteStep = (i) => {
-    etapes.splice(i, 1);
   };
 
    const handleSubmit = async (e) => {
@@ -122,6 +115,24 @@ export default function AddRecipe() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+
+  const deleteIngredient = (i, e) => {
+    let index = ingredient.indexOf(ingredient[i]);
+    ingredient.splice(index, 1);
+    document.querySelector(`#ingredient-${i}`).style.display = "none";
+  };
+  const deleteEtape = (i, e) => {
+    let index = etapes.indexOf(etapes[i]);
+    etapes.splice(index, 1);
+    document.querySelector(`#etapes-${i}`).style.display = "none";
+  };
+  const updateElement =(i , e) => {
+    ingredient.splice(i, 1 , e.target.value)
+  }
+  const updateEtape =(i , e) => {
+    etapes.splice(i, 1 , e.target.value)
+  }
 
   return (
     <>
@@ -175,17 +186,14 @@ export default function AddRecipe() {
                     type="text"
                     name="timing"
                     value={addData.timing}
-                    onChange={onChange}
-                  ></input>
-                  <select
+                    onChange={(e) => setAddData({ ...addData, [e.target.name]: e.target.value})}
+                  ></input> h
+                  <input
                     name="timingFormat"
+                    type="text"
                     value={addData.timingFormat}
-                    onChange={onChange}
-                  >
-                    <option></option>
-                    <option>Heures</option>
-                    <option>Minutes</option>
-                  </select>
+                    onChange={(e) => setAddData({ ...addData, [e.target.name]: e.target.value })}
+                  ></input> min
                 </div>
               </div>
               <div className="difficulty">
@@ -222,11 +230,13 @@ export default function AddRecipe() {
                 {alertIngredient ? <p className="alertAdd">Merci de renseigner un ingredient</p> : null }
                 <div className="container-recipeAdd">
                   {ingredient.map((ing, i) => (
-                    <NewIngredientSD
-                      key={i}
-                      ingredient={ing}
-                      onClick={() => deleteIngredient(i)}
-                    ></NewIngredientSD>
+                    <NewIngredientSDModified
+                    identifiant={`ingredient-${i}`}
+                    placeholder= {ing}
+                    onChange={(e) => updateElement (i,e)}
+                    onClick={(e) => deleteIngredient(i, e)}
+                    >
+                    </NewIngredientSDModified>
                   ))}
                 </div>
               </div>
@@ -307,12 +317,13 @@ export default function AddRecipe() {
                   {alertStep ? <p className="alertAdd">Merci de renseigner une étape .</p> : null }
                 <div className="container-recipeAdd">
                   {etapes.map((ing, i) => (
-                    <NewIngredientSD
-                      id={`${i + 1} Etapes`}
-                      key={i}
-                      ingredient={ing}
-                      onClick={() => deleteStep(i)}
-                    ></NewIngredientSD>
+                    <NewIngredientSDModified
+                    identifiant={`etapes-${i}`}
+                    placeholder= {ing}
+                    onChange={(e) => updateEtape (i,e)}
+                    onClick={(e) => deleteEtape(i, e)}
+                    >
+                    </NewIngredientSDModified>
                   ))}
                 </div>
               </div>

@@ -31,7 +31,7 @@ export default function Home() {
             name={data.title}
             key={index}
             prix={data.prix}
-            delais={data.timing + " " + data.timingFormat} 
+            delais={ (data.timing ? data.timing : null) + data.timingFormat} 
           ></CardRecipe>
         ))}
       </div>

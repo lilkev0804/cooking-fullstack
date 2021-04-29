@@ -39,6 +39,7 @@ export default function MyRecipes() {
                 id={`${info._id}`}
                 imageUrl={info.pictureName}
                 name={info.title}
+                prix={info.prix}
               ></CardRecipe>
               <Link to={`/compte/modifier-recettes/${info._id}`} className="btn">Modifier</Link>
               <button

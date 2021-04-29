@@ -1,7 +1,7 @@
 .Card-Recipe-Home {
   max-width: 320px;
   width: 30%;
-  margin: 1vh 10px;
+  margin: 2vh 10px;
   color: white;
   .bg-card {
     height: 250px;
@@ -38,6 +38,8 @@
       color: white;
       font-weight: 600;
       letter-spacing: 1.3px;
+      text-transform: uppercase;
+      text-align: center;
     }
     .time-card {
       position: absolute;
