@@ -15,6 +15,8 @@ export default function Home() {
     fetchData();
   }, []);
   const scroll = new LocomotiveScroll();
+  console.log(scroll)
+
   return (
     <div data-scroll-container>
       <div data-scroll-section

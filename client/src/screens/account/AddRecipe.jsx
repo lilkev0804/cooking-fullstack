@@ -7,14 +7,17 @@ import { Link } from "react-router-dom";
 import NewIngredient from "../../components/NewIngredient";
 import NewIngredientSDModified from "../../components/NewIngredientSDModified";
 
+import { Editor } from "@tinymce/tinymce-react";
+
 require("dotenv").config();
 
 export default function AddRecipe() {
+  const [textConcept, setTextConcept] = useState("");
   const user = useSelector(selectUser);
   let history = useHistory();
   const [message, setMessage] = useState(false);
   const [catchIngredient, setCatchIngredient] = useState();
-  const [catchStep, setCatchStep] = useState()
+  const [catchStep, setCatchStep] = useState();
   const [file, setFile] = useState({
     data: "",
     name: "",
@@ -23,7 +26,7 @@ export default function AddRecipe() {
   const [etapes, setEtape] = useState([]);
   const [addData, setAddData] = useState({
     type: "",
-    personne:"",
+    personne: "",
     proprietaire: user.name,
     // proprietaire: "kevin",
     title: "",
@@ -40,8 +43,8 @@ export default function AddRecipe() {
     cuissonTimeFormat: "",
   });
 
-  const [alertIngredient, setAlertIngredient] = useState(false)
-  const [alertStep, setAlertStep] = useState(false)
+  const [alertIngredient, setAlertIngredient] = useState(false);
+  const [alertStep, setAlertStep] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -74,35 +77,35 @@ export default function AddRecipe() {
     });
   };
   const addIngredient = () => {
-    if(catchIngredient === undefined || catchIngredient === ""){
-      setAlertIngredient(true)
+    if (catchIngredient === undefined || catchIngredient === "") {
+      setAlertIngredient(true);
       setTimeout(() => {
-        setAlertIngredient(false)
+        setAlertIngredient(false);
       }, 4000);
-    }else{
+    } else {
       setIngredient((oldArray) => [...oldArray, catchIngredient]);
-      setCatchIngredient('')
+      setCatchIngredient("");
     }
   };
 
   const addStep = () => {
-    if(catchStep === undefined || catchStep === ""){
-      setAlertStep(true)
+    if (catchStep === undefined || catchStep === "") {
+      setAlertStep(true);
       setTimeout(() => {
-        setAlertStep(false)
+        setAlertStep(false);
       }, 4000);
-    }else{
+    } else {
       setEtape((oldArray) => [...oldArray, catchStep]);
-      setCatchStep('')
+      setCatchStep("");
     }
   };
 
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     await axios
       .post("http://localhost:3002/recette/ajouter", {
         ...addData,
         ingredient,
-        etapes
+        etapes,
       })
       .then((res) => {
         setMessage(!message);
@@ -117,7 +120,6 @@ export default function AddRecipe() {
       .catch((err) => console.log(err));
   };
 
-
   const deleteIngredient = (i, e) => {
     let index = ingredient.indexOf(ingredient[i]);
     ingredient.splice(index, 1);
@@ -128,12 +130,17 @@ export default function AddRecipe() {
     etapes.splice(index, 1);
     document.querySelector(`#etapes-${i}`).style.display = "none";
   };
-  const updateElement =(i , e) => {
-    ingredient.splice(i, 1 , e.target.value)
-  }
-  const updateEtape =(i , e) => {
-    etapes.splice(i, 1 , e.target.value)
-  }
+  const updateElement = (i, e) => {
+    ingredient.splice(i, 1, e.target.value);
+  };
+  const updateEtape = (i, e) => {
+    etapes.splice(i, 1, e.target.value);
+  };
+
+  const handleEditorChange = (content, editor) => {
+    setTextConcept(content);
+  };
+  console.log(textConcept);
 
   return (
     <>
@@ -167,7 +174,7 @@ export default function AddRecipe() {
             </div>
             <div className="choiceImg">
               <input
-              className="add-element"
+                className="add-element"
                 type="file"
                 id="file"
                 accept="image/png, image/jpeg , image/webp"
@@ -175,10 +182,14 @@ export default function AddRecipe() {
               />
             </div>
             <div className="numberPersonne">
-              <p>Recette pour  </p>
-              <input type="text" name="personne" value={addData.personne}
-                    onChange={onChange}></input>
-              <p>personne{parseInt(addData.personne) > 1 ? "s" :null} .</p>
+              <p>Recette pour </p>
+              <input
+                type="text"
+                name="personne"
+                value={addData.personne}
+                onChange={onChange}
+              ></input>
+              <p>personne{parseInt(addData.personne) > 1 ? "s" : null} .</p>
             </div>
             <div className="generalInfo">
               <div className="timing">
@@ -188,14 +199,26 @@ export default function AddRecipe() {
                     type="text"
                     name="timing"
                     value={addData.timing}
-                    onChange={(e) => setAddData({ ...addData, [e.target.name]: e.target.value})}
-                  ></input> h
+                    onChange={(e) =>
+                      setAddData({
+                        ...addData,
+                        [e.target.name]: e.target.value,
+                      })
+                    }
+                  ></input>{" "}
+                  h
                   <input
                     name="timingFormat"
                     type="text"
                     value={addData.timingFormat}
-                    onChange={(e) => setAddData({ ...addData, [e.target.name]: e.target.value })}
-                  ></input> min
+                    onChange={(e) =>
+                      setAddData({
+                        ...addData,
+                        [e.target.name]: e.target.value,
+                      })
+                    }
+                  ></input>{" "}
+                  min
                 </div>
               </div>
               <div className="difficulty">
@@ -224,21 +247,22 @@ export default function AddRecipe() {
             <div className="ingredient">
               <div className="container-add">
                 <NewIngredient
-                type="un ingredient"
+                  type="un ingredient"
                   onClick={addIngredient}
                   value={catchIngredient}
                   onChange={(e) => setCatchIngredient(e.target.value)}
                 ></NewIngredient>
-                {alertIngredient ? <p className="alertAdd">Merci de renseigner un ingredient</p> : null }
+                {alertIngredient ? (
+                  <p className="alertAdd">Merci de renseigner un ingredient</p>
+                ) : null}
                 <div className="container-recipeAdd">
                   {ingredient.map((ing, i) => (
                     <NewIngredientSDModified
-                    identifiant={`ingredient-${i}`}
-                    placeholder= {ing}
-                    onChange={(e) => updateElement (i,e)}
-                    onClick={(e) => deleteIngredient(i, e)}
-                    >
-                    </NewIngredientSDModified>
+                      identifiant={`ingredient-${i}`}
+                      placeholder={ing}
+                      onChange={(e) => updateElement(i, e)}
+                      onClick={(e) => deleteIngredient(i, e)}
+                    ></NewIngredientSDModified>
                   ))}
                 </div>
               </div>
@@ -311,21 +335,22 @@ export default function AddRecipe() {
             <div className="stepRecipe">
               <div className="container-add">
                 <NewIngredient
-                type="une etape"
+                  type="une etape"
                   onClick={addStep}
                   value={catchStep}
                   onChange={(e) => setCatchStep(e.target.value)}
                 ></NewIngredient>
-                  {alertStep ? <p className="alertAdd">Merci de renseigner une étape .</p> : null }
+                {alertStep ? (
+                  <p className="alertAdd">Merci de renseigner une étape .</p>
+                ) : null}
                 <div className="container-recipeAdd">
                   {etapes.map((ing, i) => (
                     <NewIngredientSDModified
-                    identifiant={`etapes-${i}`}
-                    placeholder= {ing}
-                    onChange={(e) => updateEtape (i,e)}
-                    onClick={(e) => deleteEtape(i, e)}
-                    >
-                    </NewIngredientSDModified>
+                      identifiant={`etapes-${i}`}
+                      placeholder={ing}
+                      onChange={(e) => updateEtape(i, e)}
+                      onClick={(e) => deleteEtape(i, e)}
+                    ></NewIngredientSDModified>
                   ))}
                 </div>
               </div>
@@ -343,6 +368,7 @@ export default function AddRecipe() {
               </button>
             )}
           </div>
+  
         </div>
       </div>
       ;
