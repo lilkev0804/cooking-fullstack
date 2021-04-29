@@ -26,6 +26,8 @@ export default function RecettePlat() {
             imageUrl={data.pictureName}
             name={data.title}
             key={index}
+            prix={data.prix}
+            delais={data.timing + " " + data.timingFormat} 
           ></CardRecipe>
         ))}
       </div>

@@ -25,6 +25,7 @@ export default function AddRecipe() {
     type: "",
     personne:"",
     proprietaire: user.name,
+    // proprietaire: "kevin",
     title: "",
     pictureName: "",
     timing: "",
@@ -151,6 +152,7 @@ export default function AddRecipe() {
                   value={addData.title}
                   onChange={onChange}
                   type="text"
+                  className="mini-input"
                 ></input>
               </p>
               <p>

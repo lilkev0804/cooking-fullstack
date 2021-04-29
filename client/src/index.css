@@ -8,7 +8,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-button:active , input:focus{
+button:active , input:focus, select:focus, textarea:focus{
   outline: none
 }
 code {

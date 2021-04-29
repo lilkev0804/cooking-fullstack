@@ -51,8 +51,8 @@ export default function AddRecipe() {
         title: res.data.title,
         personne: res.data.personne,
         pictureName: res.data.pictureName,
-        timing: res.data.timing,
-        timingFormat: res.data.timingFormat,
+        timing: res.data.timing.includes('h') ? res.data.timing.replace("h","") : res.data.timing,
+        timingFormat: res.data.timingFormat.includes('min') ? res.data.timingFormat.replace("min","") : res.data.timingFormat,
         difficulty: res.data.difficulty,
         prix: res.data.prix,
         ingredients: res.data.ingredients,
@@ -181,8 +181,8 @@ export default function AddRecipe() {
     <>
       <div className="body-espace">
         <div className="breadCrumb">
-          <Link to="/compte">Mon espace</Link>
-          <Link to="/compte/mes-recettes"> Mes recettes</Link>
+          <Link to="/compte">Mon espace /</Link>
+          <Link to="/compte/mes-recettes"> Mes recettes /</Link>
           <p>Modifier des recettes</p>
         </div>
         <div className="new-recipes">

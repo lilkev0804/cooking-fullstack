@@ -12,9 +12,9 @@ export default function FormSignOut(props) {
 
   const  dispatch = useDispatch()
   const history = useHistory()
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
       e.preventDefault()
-      axios
+     await axios
       .post("http://localhost:3002/auth/login", {
         name: user,
         password: password,
@@ -30,7 +30,12 @@ export default function FormSignOut(props) {
           history.push('/compte')
           setMessage(true)
       })
-      .catch((error) => {setMessage(!message)});
+      .catch((error) => {
+        setMessage(false)
+        setTimeout(() => {
+          setMessage(true)
+        }, 3000);
+      });
   }
 
   const togglePass = (e) => {

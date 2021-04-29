@@ -10,7 +10,6 @@ export default function RecetteEntre() {
     const fetchData = async () => {
       const req = await axios.get(`http://localhost:3002/recette/type/Entrée`);
       setDatas(req.data);
-      console.log(req)
     };
     fetchData();
   }, []);

@@ -3,6 +3,12 @@
   flex-direction: column;
   align-self: center;
   justify-content: center;
+  label{
+    font-weight: 500;
+  }
+  input{
+    padding: 5px 5px;
+  }
   .select-sign {
     text-align: center;
     margin: 5vh auto;
@@ -26,7 +32,7 @@
   justify-content: center;
   padding: 1vh 0;
   .left {
-    margin-right: px !important;
+    margin-right: 25px !important;
   }
   .form-group-connect {
     display: flex;

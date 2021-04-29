@@ -38,12 +38,28 @@
       justify-content: space-evenly;
       flex-wrap: wrap;
   }
- 
 }
-
 .hero{
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   position: relative;
   background-blend-mode: screen;
+}
+.intro-recipe{
+  width: 100%;
+  margin: 2vh auto;
+  border: 1px solid red;
+  display: flex;
+}
+.title{
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 10vh;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1.4px;
 }

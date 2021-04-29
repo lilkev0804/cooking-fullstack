@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { selectUser } from "../../features/userSlice";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { login } from "../../features/userSlice";
 import axios from "axios";
 
 export default function MyAccount() {
@@ -13,6 +14,7 @@ export default function MyAccount() {
     name: "",
   });
   let history = useHistory();
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -104,6 +106,7 @@ export default function MyAccount() {
               <button className="btn" onClick={handleUpdateImage}>
                 Sauvegarder
               </button>
+              
             </div>
           </div>
           <div className="infopersonnel"></div>
