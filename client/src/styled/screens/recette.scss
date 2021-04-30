@@ -8,13 +8,18 @@
 .nameRecipe {
   text-transform: uppercase;
   letter-spacing: 1.3px;
+  color: $colorSecondary;
+}
+.UserRecipe{
   color: $colorThird;
+  font-weight: bold;
 }
 .Imagerecette {
   max-width: 600px;
+  max-height: 400px;
   width: 90%;
   object-fit: cover;
-  margin: 3vh auto;
+  margin: 3vh auto 5vh auto;
 }
 .Info-Recipe {
   width: 100%;
@@ -42,7 +47,6 @@
   p {
     padding: 0;
     margin: 0;
-    text-transform: capitalize;
     font-weight: 500;
     color: white;
   }

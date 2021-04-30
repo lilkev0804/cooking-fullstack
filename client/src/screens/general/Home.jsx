@@ -3,11 +3,14 @@ import CardRecipe from "../../components/CardRecipe";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import LocomotiveScroll from 'locomotive-scroll';
+import "aos/dist/aos.css";
+import Aos from "aos";
 
 export default function Home() {
   const [datas, setDatas] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
+    Aos.init({ duration: 2000 });
     const fetchData = async () => {
       const element = await axios.get("http://localhost:3002/recette");
       setDatas(element.data);
@@ -15,7 +18,7 @@ export default function Home() {
     fetchData();
   }, []);
   const scroll = new LocomotiveScroll();
-  console.log(scroll)
+  // console.log(scroll)
 
   return (
     <div data-scroll-container>
@@ -27,7 +30,7 @@ export default function Home() {
       </div>
 
       <div data-scroll-section className="Container home-general">
-        <h1 data-scroll style={{ textAlign: "center" }}>Toutes nos recettes</h1>
+        <h1 data-scroll >Toutes nos recettes</h1>
         <div className="all-recipe">
           {datas.map((data, index) => (
             <CardRecipe

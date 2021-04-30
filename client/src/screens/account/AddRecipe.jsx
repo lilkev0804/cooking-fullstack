@@ -140,7 +140,7 @@ export default function AddRecipe() {
   const handleEditorChange = (content, editor) => {
     setTextConcept(content);
   };
-  console.log(textConcept);
+  
 
   return (
     <>
@@ -166,6 +166,7 @@ export default function AddRecipe() {
                 Type :{" "}
                 <select name="type" value={addData.type} onChange={onChange}>
                   <option></option>
+                  <option>Aperitif</option>
                   <option>Entrée</option>
                   <option>Plat</option>
                   <option>Dessert</option>

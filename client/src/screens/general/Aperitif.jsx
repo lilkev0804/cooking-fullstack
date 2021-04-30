@@ -3,12 +3,12 @@ import axios from "axios";
 import CardRecipe from "../../components/CardRecipe";
 import Back from "../../components/Back";
 
-export default function RecettePlat() {
+export default function Aperitif() {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const req = await axios.get(`http://localhost:3002/recette/type/Dessert`);
+      const req = await axios.get(`http://localhost:3002/recette/type/Aperitif`);
       setDatas(req.data);
     };
     fetchData();
@@ -17,7 +17,7 @@ export default function RecettePlat() {
   return (
     <div className="Container-Recipe">
       <Back></Back>
-      <h1>Les Desserts</h1>
+      <h1>Les Apéritifs</h1>
       <div className="all-recipe">
         {datas.map((data, index) => (
           //<CardRecipe dataI={data._id} id={data._id} imageUrl={data.pictureName} name={data.title} key={index}></CardRecipe>

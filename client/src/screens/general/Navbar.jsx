@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
@@ -12,7 +12,7 @@ export default function Navbar(props) {
   };
 
   window.addEventListener("scroll", function () {
-    if (window.scrollY > 100) {
+    if (window.scrollY > 200) {
       setScroll(true);
     } else {
       setScroll(false);
@@ -27,7 +27,7 @@ export default function Navbar(props) {
         position: `${scroll ? "fixed" : "relative"}`,
       }}
     >
-      <div className="transition"></div>
+
       <div
         className="burgerMenuContainer"
         style={{ display: `${burgerMenu === true ? "none" : "flex"}` }}
@@ -44,6 +44,13 @@ export default function Navbar(props) {
           onClick={(e) => setBurgerMenu(!burgerMenu)}
         >
           Toute les recettes
+        </Link>
+        <Link
+          to="/recettes/aperitif"
+          className="link-burger"
+          onClick={(e) => setBurgerMenu(!burgerMenu)}
+        >
+          Les apéritifs
         </Link>
         <Link
           to="/recettes/entre"
@@ -65,6 +72,9 @@ export default function Navbar(props) {
           onClick={(e) => setBurgerMenu(!burgerMenu)}
         >
           Les desserts
+        </Link>
+        <Link className="link-burger" id="link-burger-inscription" to={user === null ? "/connexion" : "/compte"} onClick={(e) => setBurgerMenu(!burgerMenu)}>
+          {user === null ? "Connexion" : "Mon compte"} 
         </Link>
       </div>
       <div className="navbar-element-menu">

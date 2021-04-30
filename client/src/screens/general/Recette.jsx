@@ -28,7 +28,7 @@ function Recette() {
     <div className="Container onlyRecipe">
       <Back></Back>
       <h1 className="nameRecipe">{datas.title}</h1>
-      <p>Une recette de {datas.proprietaire}</p>
+      <p>Une recette de <span className="UserRecipe">{datas.proprietaire}</span></p>
       <p>Recette pour {datas.personne} personne{parseInt(datas.personne) > 1 ? "s" : null}</p>
       <div className="introInfo">
         {datas.difficulty === "Simple" ? (
@@ -77,7 +77,7 @@ function Recette() {
           </span>
         </div>
         <div className="infoDuration">
-          <p>Temps de Cuisson :</p>
+          <p>Temps de cuisson :</p>
           <span>
             <p>{datas.cuissonTime} {datas.cuissonTimeFormat}</p>
           </span>

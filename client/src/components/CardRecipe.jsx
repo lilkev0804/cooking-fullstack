@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ImagePriceWhite from "./ImagePriceWhite";
+import "aos/dist/aos.css";
+
 
 export default function CardRecipe(props) {
   return (
-    <div className="Card-Recipe-Home" data-index={props.dataI}>
+    <div data-aos="flip-left" data-aos-duration="2500" data-aos-offset="300" className="Card-Recipe-Home" data-index={props.dataI}>
       <div
         className="bg-card"
         style={{

@@ -16,6 +16,9 @@
   }
 }
 
+#link-burger-inscription{
+  display: none;
+}
 .fixed-navbar {
  
   top: 0px;
@@ -90,4 +93,22 @@ width: 10%;
   height: 10px;
   margin: 1px;
   background: #6c9e4f;
+}
+@media screen and (max-width :960px ){
+  .Navbar{
+    justify-content: space-between;
+  }
+  .navbar-element-menu{
+    margin: 0 0px;
+    width: auto;
+  }
+  .navbar-element-account{
+    display: none;
+  }
+  .navbar-element-search{
+    width: auto;
+  }
+  #link-burger-inscription{
+    display: block !important;
+  }
 }

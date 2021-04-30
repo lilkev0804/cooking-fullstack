@@ -208,6 +208,7 @@ export default function AddRecipe() {
                   onChange={onChange}
                 >
                   <option></option>
+                  <option>Aperitif</option>
                   <option>Entrée</option>
                   <option>Plat</option>
                   <option>Dessert</option>
